@@ -42,6 +42,7 @@ names(Y) <- "activity"
 # 4. Appropriately labels the data set with descriptive activity names.
 names(S) <- "subject"
 cleaned <- cbind(S, Y, X)
+## Write output file one level up from UCI HAR Dataset files
 write.table(cleaned, "../merged_clean_data.txt")
 
 
