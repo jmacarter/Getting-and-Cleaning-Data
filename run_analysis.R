@@ -43,7 +43,7 @@ names(Y) <- "activity"
 names(S) <- "subject"
 cleaned <- cbind(S, Y, X)
 ## Write output file one level up from UCI HAR Dataset files
-write.table(cleaned, "../merged_clean_data.txt")
+write.table(cleaned, "../merged_cleaned_data_with_names.txt")
 
 
 # 5. Creates a 2nd, independent tidy data set with the average of each variable for each activity and each subject.
@@ -65,4 +65,4 @@ for (s in 1:numSubjects) {
 }
 
 ## Write output file one level up from UCI HAR Dataset files
-write.table(result, "../data_set_with_the_averages.txt")
+write.table(result, "../tidy_data_set_with_the_averages.txt")
