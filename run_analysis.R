@@ -9,22 +9,22 @@
 # This R script does the following:
 
 # 1. Merges the training and the test sets to create one data set.
-## First setwd to the UCI HAR Dataset dir
-tmp1 <- read.table("train/X_train.txt")
-tmp2 <- read.table("test/X_test.txt")
+## Read files in the train and test directories within the UCI HAR Dataset dir
+tmp1 <- read.table("UCI HAR Dataset/train/X_train.txt")
+tmp2 <- read.table("UCI HAR Dataset/test/X_test.txt")
 X <- rbind(tmp1, tmp2)
 
-tmp1 <- read.table("train/subject_train.txt")
-tmp2 <- read.table("test/subject_test.txt")
+tmp1 <- read.table("UCI HAR Dataset/train/subject_train.txt")
+tmp2 <- read.table("UCI HAR Dataset/test/subject_test.txt")
 S <- rbind(tmp1, tmp2)
 
-tmp1 <- read.table("train/y_train.txt")
-tmp2 <- read.table("test/y_test.txt")
+tmp1 <- read.table("UCI HAR Dataset/train/y_train.txt")
+tmp2 <- read.table("UCI HAR Dataset/test/y_test.txt")
 Y <- rbind(tmp1, tmp2)
 
 
 # 2. Extracts only the measurements on the mean and standard deviation for each measurement.
-features <- read.table("features.txt")
+features <- read.table("UCI HAR Dataset/features.txt")
 indices_of_good_features <- grep("-mean\\(\\)|-std\\(\\)", features[, 2])
 X <- X[, indices_of_good_features]
 names(X) <- features[indices_of_good_features, 2]
@@ -33,7 +33,7 @@ names(X) <- tolower(names(X))
 
 
 # 3. Uses descriptive activity names to name the activities in the data set.
-activities <- read.table("activity_labels.txt")
+activities <- read.table("UCI HAR Dataset/activity_labels.txt")
 activities[, 2] = gsub("_", "", tolower(as.character(activities[, 2])))
 Y[,1] = activities[Y[,1], 2]
 names(Y) <- "activity"
@@ -43,7 +43,7 @@ names(Y) <- "activity"
 names(S) <- "subject"
 cleaned <- cbind(S, Y, X)
 ## Write output file one level up from UCI HAR Dataset files
-write.table(cleaned, "../merged_cleaned_data_with_names.txt")
+write.table(cleaned, "merged_cleaned_data_with_names.txt")
 
 
 # 5. Creates a 2nd, independent tidy data set with the average of each variable for each activity and each subject.
@@ -65,4 +65,4 @@ for (s in 1:numSubjects) {
 }
 
 ## Write output file one level up from UCI HAR Dataset files
-write.table(result, "../tidy_data_set_with_the_averages.txt")
+write.table(result, "tidy_data_set_with_the_averages.txt")
